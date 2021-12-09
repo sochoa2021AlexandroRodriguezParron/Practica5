@@ -17,6 +17,29 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.Practica5.PopupOverlay">
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/svBusqueda"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:id="@+id/rgOrder"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rbAsc"
+                    android:text="@string/rbAsc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rbDesc"
+                    android:text="@string/rbDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </RadioGroup>
+
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -30,5 +53,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
