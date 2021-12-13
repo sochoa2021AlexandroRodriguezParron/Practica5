@@ -1,4 +1,4 @@
-package practica5.AlexandroRodriguez.iesseveroochoa.net.Activity;
+package ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
