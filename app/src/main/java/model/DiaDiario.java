@@ -110,12 +110,20 @@ public class DiaDiario implements Parcelable {
 
     /**
      * Igual que el anterior pero que le pasamos un entero y nos devuelve la valoración resumida.
+     * Metodo estático.
      * @param entero
      * @return
      */
     public static int getStaticValoracionResumida(int entero){
-        //TO_DO:
-        return 0;
+        if(entero < 5){
+            return 1;
+        }else{
+            if(entero < 8){
+                return 2;
+            }else{
+                return 3;
+            }
+        }
     }
 
     /**
@@ -133,8 +141,8 @@ public class DiaDiario implements Parcelable {
      * @return
      */
     public static String getStaticFechaFormatoLocal(Date fecha) {
-        //TO_DO:
-        return "";
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+        return df.format(fecha);
     }
 
     @Override
