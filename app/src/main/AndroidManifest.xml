@@ -9,19 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Practica5">
+
         <activity
             android:name="ui.EdicionDiaActivty"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Practica5.NoActionBar">
+            android:theme="@style/Theme.Practica5.NoActionBar"
+            android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

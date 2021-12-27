@@ -13,7 +13,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
-        app:backgroundTint="#00FFD9"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_save" />
@@ -28,7 +28,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="409dp"
         android:layout_height="0dp"
-        android:background="#00FFD9"
+        android:background="#6C4809"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,12 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:text="@string/tv_fechaElegida"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/tv_ValoraDia"
             app:layout_constraintEnd_toStartOf="@+id/iv_fecha"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +71,7 @@
             android:ems="10"
             android:hint="@string/et_Resumen"
             android:inputType="textPersonName"
+            android:textColor="#F8F8F8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/iv_fecha"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/tv_ValoraDia"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
@@ -109,5 +109,25 @@
             app:layout_constraintStart_toEndOf="@+id/tv_ValoraDia"
             app:layout_constraintTop_toBottomOf="@+id/et_Resumen" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#EFD274"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2">
+
+        <EditText
+            android:id="@+id/etContenido"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/Text_Diario"
+            android:inputType="textMultiLine" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

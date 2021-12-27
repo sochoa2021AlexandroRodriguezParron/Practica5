@@ -6,8 +6,13 @@
     <string name="action_about">Acerca de...</string>
     <string name="rbAsc">Asc</string>
     <string name="rbDesc">Desc</string>
-    <string name="tv_fechaElegida">12/07/2020</string>
+    <string name="tv_fechaElegida">Dec 27, 2021</string>
+    <string name="tv_fechaFormateada">%1$s</string>
     <string name="et_Resumen">Resumen breve del día</string>
     <string name="tv_ValoraDia">Valora Dia: 5</string>
     <string name="tv_ValoraDiaFormateado">Valora Dia: %1$d</string>
+    <string name="Text_Diario">Cuenta a tu diario tu día...</string>
+    <string name="tituloAviso">Aviso</string>
+    <string name="mensajeAviso">Es necesario rellenar todos los camos</string>
+    <string name="okAviso">OK</string>
 </resources>
