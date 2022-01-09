@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -23,9 +22,9 @@ import java.util.Date;
 import model.DiaDiario;
 import practica5.AlexandroRodriguez.iesseveroochoa.net.R;
 
-public class EdicionDiaActivty extends AppCompatActivity {
+public class EdicionDiaActivity extends AppCompatActivity {
 
-    public static String EXTRA_DATOS = "EdicionDiaActivity.datos";
+    public final static String EXTRA_DATOS = "EdicionDiaActivity.datos";
 
     private SeekBar sb_ValoracionDia;
     private TextView tv_ValoraDia;
@@ -80,7 +79,7 @@ public class EdicionDiaActivty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar newCalendar = Calendar.getInstance();
-                DatePickerDialog dialogo = new DatePickerDialog(EdicionDiaActivty.this, new
+                DatePickerDialog dialogo = new DatePickerDialog(EdicionDiaActivity.this, new
                         DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int
@@ -111,15 +110,17 @@ public class EdicionDiaActivty extends AppCompatActivity {
                 DiaDiario diaDiario = new DiaDiario(fechaActual, valorarDia, res, con);
 
                 if(res.isEmpty() || con.isEmpty()){
-                    AlertDialog.Builder dia = new AlertDialog.Builder(EdicionDiaActivty.this);
+                    AlertDialog.Builder dia = new AlertDialog.Builder(EdicionDiaActivity.this);
                     dia.setTitle(getResources().getString(R.string.tituloAviso));
                     dia.setMessage(getResources().getString(R.string.mensajeAviso));
                     dia.setNeutralButton(getResources().getString(R.string.okAviso), null);
                     dia.show();
                 }else{
-                    Intent intent = new Intent(EdicionDiaActivty.this, MainActivity.class);
-                    intent.putExtra(EXTRA_DATOS ,(Parcelable) diaDiario);
-                    startActivity(intent);
+                    Intent i = getIntent();
+                    i.putExtra(EXTRA_DATOS ,(Parcelable) diaDiario);
+                    //Se la pasamos al MainActivity
+                    setResult(RESULT_OK, i);
+                    finish();
                 }
 
 

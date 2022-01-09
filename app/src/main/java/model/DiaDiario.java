@@ -5,9 +5,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 import java.util.Locale;
 
+@Entity(tableName = DiaDiario.TABLE_NAME,
+        indices = {@Index(value = {DiaDiario.FECHA},unique = true)})
 public class DiaDiario implements Parcelable {
     //Constantes
     public static final String TABLE_NAME="diario";
@@ -19,24 +28,47 @@ public class DiaDiario implements Parcelable {
     public static final String FOTO_URI="foto_uri";
 
     //Atributos
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name=ID)
     private int id; //clave del dia.
+
+    @ColumnInfo(name = FECHA)
+    @NonNull
     private Date fecha; //Dia del diario. No tendremos dos días con la misma fecha.
+
+    @ColumnInfo(name = VALORACION_DIA)
+    @NonNull
     private int valoracionDia; //Entero de 0 a 10 que el usuario podrá valorar como ha sido el día.
+
+    @ColumnInfo(name = RESUMEN)
+    @NonNull
     private String resumen; //Breve resumen del día.
+
+    @ColumnInfo(name = CONTENIDO)
+    @NonNull
     private String contenido; //Contiene ttodo el contenido escrito en el diario por parte del usuario.
+
+    @ColumnInfo(name = FOTO_URI)
+    @NonNull
     private String fotoUri; //Mantendremos una foto representativa del día.
 
     //Constructores
     //Ttodo menos id.
-    public DiaDiario(Date fecha, int valoracionDia, String resumen, String contenido, String fotoUri) {
+    public DiaDiario(@NonNull Date fecha,@NonNull int valoracionDia,@NonNull String resumen,@NonNull String contenido,@NonNull String fotoUri) {
         this.fecha = fecha;
         this.valoracionDia = valoracionDia;
         this.resumen = resumen;
         this.contenido = contenido;
         this.fotoUri = fotoUri;
     }
+
     //Ttodo menos id y fotoUri (se le asignará cadena vacía)
-    public DiaDiario(Date fecha, int valoracionDia, String resumen, String contenido) {
+    @Ignore
+
+
+
+    public DiaDiario(@NonNull Date fecha,@NonNull int valoracionDia,@NonNull String resumen,@NonNull String contenido) {
         this.fecha = fecha;
         this.valoracionDia = valoracionDia;
         this.resumen = resumen;
@@ -56,37 +88,37 @@ public class DiaDiario implements Parcelable {
     public int getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
     public Date getFecha() {
         return fecha;
     }
-    public void setFecha(Date fecha) {
+    public void setFecha(@NonNull Date fecha) {
         this.fecha = fecha;
     }
     public int getValoracionDia() {
         return valoracionDia;
     }
-    public void setValoracionDia(int valoracionDia) {
+    public void setValoracionDia(@NonNull int valoracionDia) {
         this.valoracionDia = valoracionDia;
     }
     public String getResumen() {
         return resumen;
     }
-    public void setResumen(String resumen) {
+    public void setResumen(@NonNull String resumen) {
         this.resumen = resumen;
     }
     public String getContenido() {
         return contenido;
     }
-    public void setContenido(String contenido) {
+    public void setContenido(@NonNull String contenido) {
         this.contenido = contenido;
     }
     public String getFotoUri() {
         return fotoUri;
     }
-    public void setFotoUri(String fotoUri) {
+    public void setFotoUri(@NonNull String fotoUri) {
         this.fotoUri = fotoUri;
     }
 

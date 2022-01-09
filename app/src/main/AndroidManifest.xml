@@ -11,7 +11,7 @@
         android:theme="@style/Theme.Practica5">
 
         <activity
-            android:name="ui.EdicionDiaActivty"
+            android:name="ui.EdicionDiaActivity"
             android:exported="false"
             android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateHidden" />
