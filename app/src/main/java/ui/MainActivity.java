@@ -5,22 +5,29 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 import model.DiaDiario;
 import practica5.AlexandroRodriguez.iesseveroochoa.net.R;
+import viewmodels.DiarioViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton fabAñadir;
+    private DiarioViewModel diarioViewModel;
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -56,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        diarioViewModel= new ViewModelProvider(this).get(DiarioViewModel.class);
+        diarioViewModel.getDiarioLiveData().observe(this, new
+                Observer<List<DiaDiario>>() {
+                    @Override
+                    public void onChanged(List<DiaDiario> diario) {
+                        // adapter.setDiario(diario);
+                        Log.d("P5","tamaño: "+diario.size());
+                    }
+                });
 
     }
 

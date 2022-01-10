@@ -1,6 +1,7 @@
 package model;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.Single;
 
+@Dao
 public interface DiarioDao {
 
     //nuevo DiaDiario sustituyendo si ya existe
