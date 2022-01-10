@@ -35,9 +35,9 @@ public class DiarioRepositorio {
         //creamos la base de datos
         DiarioDatabase db= DiarioDatabase.getDatabase(application);
         //Recuperamos el DAO necesario para el CRUD de la base de datos
-        mDiarioDao =db.diarioDao();
+        mDiarioDao = db.diarioDao();
         //Recuperamos la lista como un LiveData
-        mAllDiario=mDiarioDao.getAllDiaDiario();
+        mAllDiario = mDiarioDao.getAllDiaDiario();
     }
     public LiveData<List<DiaDiario>> getAllDia(){
         return mAllDiario;

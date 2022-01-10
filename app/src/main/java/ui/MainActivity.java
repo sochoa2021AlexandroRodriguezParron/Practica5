@@ -64,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         diarioViewModel= new ViewModelProvider(this).get(DiarioViewModel.class);
-        diarioViewModel.getDiarioLiveData().observe(this, new
+        diarioViewModel.getAllDiarios().observe(this, new
                 Observer<List<DiaDiario>>() {
                     @Override
                     public void onChanged(List<DiaDiario> diario) {
-                        // adapter.setDiario(diario);
+                        //adapter.setDiario(diario);
                         Log.d("P5","tamaño: "+diario.size());
                         Toast.makeText(MainActivity.this, "tamaño: "+diario.size(), Toast.LENGTH_SHORT).show();
                     }

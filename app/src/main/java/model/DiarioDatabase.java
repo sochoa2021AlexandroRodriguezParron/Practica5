@@ -46,7 +46,7 @@ public abstract class DiarioDatabase extends RoomDatabase {
                     // Create database here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             //nombre del fichero de la base de datos
-                            DiarioDatabase.class, "agenda_database")
+                            DiarioDatabase.class, "tarea_database")
                             //nos permite realizar tareas cuando es nueva o se ha creado una
                             //nueva versión del programa
                             .addCallback(sRoomDatabaseCallback)//para ejecutar al crear o al abrir
@@ -64,7 +64,7 @@ public abstract class DiarioDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             // new PopulateDbAsync(INSTANCE).execute();
-            //creamos algunos contactos en un hilo
+            //creamos algunos Diarios en un hilo
             databaseWriteExecutor.execute(() -> {
                 //obtenemos la base de datos
                 DiarioDao mDao = INSTANCE.diarioDao();

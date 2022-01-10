@@ -65,23 +65,12 @@ public class DiaDiario implements Parcelable {
 
     //Ttodo menos id y fotoUri (se le asignará cadena vacía)
     @Ignore
-
-
-
     public DiaDiario(@NonNull Date fecha,@NonNull int valoracionDia,@NonNull String resumen,@NonNull String contenido) {
         this.fecha = fecha;
         this.valoracionDia = valoracionDia;
         this.resumen = resumen;
         this.contenido = contenido;
         this.fotoUri = "";
-    }
-
-    protected DiaDiario(Parcel in) {
-        id = in.readInt();
-        valoracionDia = in.readInt();
-        resumen = in.readString();
-        contenido = in.readString();
-        fotoUri = in.readString();
     }
 
     //Getters & Setters
@@ -189,6 +178,17 @@ public class DiaDiario implements Parcelable {
         dest.writeString(resumen);
         dest.writeString(contenido);
         dest.writeString(fotoUri);
+    }
+
+    protected DiaDiario(Parcel in) {
+        this.id = in.readInt();
+        this.valoracionDia = in.readInt();
+        this.resumen = in.readString();
+        this.contenido = in.readString();
+        this.fotoUri = in.readString();
+
+        long tmpFecha = in.readLong();
+        this.fecha = tmpFecha == -1 ? null : new Date(tmpFecha);
     }
 
     public static final Creator<DiaDiario> CREATOR = new Creator<DiaDiario>() {

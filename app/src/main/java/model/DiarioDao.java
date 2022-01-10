@@ -31,7 +31,7 @@ public interface DiarioDao {
     void deleteAll();
 
     //todos los DiaDiario
-    @Query("SELECT * FROM "+DiaDiario.TABLE_NAME)
+    @Query("SELECT * FROM "+DiaDiario.TABLE_NAME+" ORDER BY fecha")
     LiveData<List<DiaDiario>> getAllDiaDiario();
 
     //todos los DiaDiario ordenados
