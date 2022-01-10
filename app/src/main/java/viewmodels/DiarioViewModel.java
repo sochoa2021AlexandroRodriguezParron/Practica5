@@ -33,7 +33,11 @@ public class DiarioViewModel extends AndroidViewModel {
     }
     public void delete(DiaDiario diaDiario){ mRepository.delete(diaDiario); }
 
+
     public LiveData<List<DiaDiario>> getDiarioLiveData() {
-        return mAllDiarios;
+
+
+
+        return null;
     }
 }
