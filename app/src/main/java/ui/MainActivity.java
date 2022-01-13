@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onChanged(List<DiaDiario> diario) {
                         //adapter.setDiario(diario);
                         Log.d("P5","tamaño: "+diario.size());
-                        Toast.makeText(MainActivity.this, "tamaño: "+diario.size(), Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
