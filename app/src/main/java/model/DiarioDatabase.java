@@ -68,12 +68,12 @@ public abstract class DiarioDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 //obtenemos la base de datos
                 DiarioDao mDao = INSTANCE.diarioDao();
-                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("MM DD, yyyy");
+                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
                 DiaDiario diaDiario = null;
                 //creamos unos Dias
                 try {
                     //Dia 1
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("Dec 27, 2021"), 5, "Un día un poco aburrido, solo he visto Netflix", "Lorem ipsum dolor sit amet,"+
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("27-12-2021"), 5, "Un día un poco aburrido, solo he visto Netflix", "Lorem ipsum dolor sit amet,"+
                             "consectetur adipiscing elit. Nam rutrum lectus vestibulum, consectetur urna"+
                             "vel, rutrum tortor. Phasellus at leo nibh. Pellentesque lacinia blandit dui"+
                             "eu aliquam. Cras et suscipit nibh. Cras vehicula lobortis ante, vel hendrerit"+
@@ -83,7 +83,7 @@ public abstract class DiarioDatabase extends RoomDatabase {
                             "maximus.");
                     mDao.insert(diaDiario);
                     //Dia 2
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("Dec 29, 2021"), 7, "Un día un divertido, he visto YouTube", "Lorem ipsum dolor sit amet,"+
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("29-12-2021"), 7, "Un día un divertido, he visto YouTube", "Lorem ipsum dolor sit amet,"+
                             "consectetur adipiscing elit. Nam rutrum lectus vestibulum, consectetur urna"+
                             "vel, rutrum tortor. Phasellus at leo nibh. Pellentesque lacinia blandit dui"+
                             "eu aliquam. Cras et suscipit nibh. Cras vehicula lobortis ante, vel hendrerit"+
@@ -93,7 +93,7 @@ public abstract class DiarioDatabase extends RoomDatabase {
                             "maximus.");
                     mDao.insert(diaDiario);
                     //Dia 3
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("Dec 31, 2021"), 10, "Un día asombroso, hemos salido de fiesta", "Lorem ipsum dolor sit amet,"+
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("31-12-2021"), 10, "Un día asombroso, hemos salido de fiesta", "Lorem ipsum dolor sit amet,"+
                             "consectetur adipiscing elit. Nam rutrum lectus vestibulum, consectetur urna"+
                             "vel, rutrum tortor. Phasellus at leo nibh. Pellentesque lacinia blandit dui"+
                             "eu aliquam. Cras et suscipit nibh. Cras vehicula lobortis ante, vel hendrerit"+
@@ -103,7 +103,7 @@ public abstract class DiarioDatabase extends RoomDatabase {
                             "maximus.");
                     mDao.insert(diaDiario);
                     //Dia 4
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("Jan 1, 2022"), 8, "Un día fantástico, hemos cambiado de año", "Lorem ipsum dolor sit amet,"+
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("01-01-2022"), 8, "Un día fantástico, hemos cambiado de año", "Lorem ipsum dolor sit amet,"+
                             "consectetur adipiscing elit. Nam rutrum lectus vestibulum, consectetur urna"+
                             "vel, rutrum tortor. Phasellus at leo nibh. Pellentesque lacinia blandit dui"+
                             "eu aliquam. Cras et suscipit nibh. Cras vehicula lobortis ante, vel hendrerit"+
@@ -113,7 +113,7 @@ public abstract class DiarioDatabase extends RoomDatabase {
                             "maximus.");
                     mDao.insert(diaDiario);
                     //Dia 5
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("Jan 7, 2022"), 2, "Un día cansado, hemos vuelto a las clases", "Lorem ipsum dolor sit amet,"+
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("07-01-2022"), 2, "Un día cansado, hemos vuelto a las clases", "Lorem ipsum dolor sit amet,"+
                             "consectetur adipiscing elit. Nam rutrum lectus vestibulum, consectetur urna"+
                             "vel, rutrum tortor. Phasellus at leo nibh. Pellentesque lacinia blandit dui"+
                             "eu aliquam. Cras et suscipit nibh. Cras vehicula lobortis ante, vel hendrerit"+
