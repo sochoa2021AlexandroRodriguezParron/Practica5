@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
                         DiaDiario dia = data.getParcelableExtra(EdicionDiaActivity.EXTRA_DIARIO);
 
+                        //Obtengo la fecha en formato String y la formateo a formato DATE, y le actualizo la fecha al dia
                         String fechaDia = data.getStringExtra(EdicionDiaActivity.EXTRA_FECHA);
-
                         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
 
                         try {

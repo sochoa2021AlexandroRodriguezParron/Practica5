@@ -147,6 +147,7 @@ public class EdicionDiaActivity extends AppCompatActivity {
                     }
 
                     i.putExtra(EXTRA_DIARIO ,(Parcelable) diaDiario);
+                    //Mando la fecha en formato String, para formatearla
                     i.putExtra(EXTRA_FECHA, fecha);
 
                     //Se la pasamos al MainActivity
