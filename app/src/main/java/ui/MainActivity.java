@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import model.DiaDiario;
@@ -37,10 +40,20 @@ public class MainActivity extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         //Recuperamos los dados
                         Intent data = result.getData();
-                        DiaDiario dia = (DiaDiario) data.getParcelableExtra(EdicionDiaActivity.EXTRA_DATOS);
 
-                        Toast.makeText(MainActivity.this, ""+dia.getResumen(), Toast.LENGTH_SHORT).show();
+                        DiaDiario dia = data.getParcelableExtra(EdicionDiaActivity.EXTRA_DIARIO);
 
+                        String fechaDia = data.getStringExtra(EdicionDiaActivity.EXTRA_FECHA);
+
+                        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
+
+                        try {
+                            dia.setFecha(formatoDelTexto.parse(fechaDia));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        diarioViewModel.insert(dia);
                     }
                 }
             });

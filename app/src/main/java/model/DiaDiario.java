@@ -73,6 +73,9 @@ public class DiaDiario implements Parcelable {
         this.fotoUri = "";
     }
 
+    public DiaDiario() {
+    }
+
     //Getters & Setters
     public int getId() {
         return id;
