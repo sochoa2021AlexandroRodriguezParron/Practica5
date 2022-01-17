@@ -65,7 +65,7 @@ public class EdicionDiaActivity extends AppCompatActivity {
         et_Resumen = findViewById(R.id.et_Resumen);
         etContenido = findViewById(R.id.etContenido);
 
-        diaDiario = new DiaDiario();
+        diaDiario = null;
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         date = calendar.getTime();
@@ -85,6 +85,7 @@ public class EdicionDiaActivity extends AppCompatActivity {
             public void onStartTrackingTouch(SeekBar seekBar) {
                 String textoFormateado = getResources().getString(R.string.tv_ValoraDia);
                 tv_ValoraDia.setText(textoFormateado);
+                sb_ValoracionDia.setProgress(5);
             }
 
             @Override
@@ -120,12 +121,37 @@ public class EdicionDiaActivity extends AppCompatActivity {
             }
         });
 
+        DiaDiario diaExtra = getIntent().getParcelableExtra(MainActivity.EXTRA_MAIN);
+        String fechaExtra = getIntent().getStringExtra(MainActivity.EXTRA_FECHA);
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
+        if(diaExtra != null){
+            //Si no es nulo.
+            this.setTitle(diaExtra.getResumen());
+            et_Resumen.setText(diaExtra.getResumen());
+            tv_ValoraDia.setText(getResources().getString(R.string.tv_ValoraDiaFormateado, diaExtra.getValoracionDia()));
+            sb_ValoracionDia.setProgress(diaExtra.getValoracionDia());
+            etContenido.setText(diaExtra.getContenido());
+            diaDiario = diaExtra;
+
+
+            Date fecha = null;
+            try {
+                fecha = formatoDelTexto.parse(fechaExtra);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            diaDiario.setFecha(fecha);
+            fechaExtra = diaExtra.getStaticFechaFormatoLocal(fecha);
+            tv_fechaElegida.setText(fechaExtra);
+        }
+
         fabGuardarEdicion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String res = et_Resumen.getText().toString();
                 String con = etContenido.getText().toString();
-
+                String fecha = "";
                 if(res.isEmpty() || con.isEmpty()){
                     AlertDialog.Builder dia = new AlertDialog.Builder(EdicionDiaActivity.this);
                     dia.setTitle(getResources().getString(R.string.tituloAviso));
@@ -134,25 +160,56 @@ public class EdicionDiaActivity extends AppCompatActivity {
                     dia.show();
                 }else{
 
-                    SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
+                    if(diaDiario != null){
+                        //Fecha
+                        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
+                        fecha = formatoDelTexto.format(fechaActual);
+                        Date fechaActualizada = null;
+                        try {
+                            fechaActualizada = formatoDelTexto.parse(fecha);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        diaDiario.setFecha(fechaActualizada);
+                        //Resumen
+                        diaDiario.setResumen(res);
+                        //Valoracion Dia
+                        diaDiario.setValoracionDia(valorarDia);
+                        //Contenido
+                        diaDiario.setContenido(con);
 
-                    String fecha = formatoDelTexto.format(fechaActual);
+                        Intent i = getIntent();
 
-                    Intent i = getIntent();
+                        i.putExtra(EXTRA_DIARIO ,(Parcelable) diaDiario);
+                        //Mando la fecha en formato String, para formatearla
+                        i.putExtra(EXTRA_FECHA, fecha);
 
-                    try {
-                        diaDiario = new DiaDiario(formatoDelTexto.parse(fecha), valorarDia, res, con);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                        //Se la pasamos al MainActivity
+                        setResult(RESULT_OK, i);
+                        finish();
+
+                    }else{
+                        diaDiario = new DiaDiario();
+                        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
+
+                        fecha = formatoDelTexto.format(fechaActual);
+
+                        try {
+                            diaDiario = new DiaDiario(formatoDelTexto.parse(fecha), valorarDia, res, con);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Intent i = getIntent();
+
+                        i.putExtra(EXTRA_DIARIO ,(Parcelable) diaDiario);
+                        //Mando la fecha en formato String, para formatearla
+                        i.putExtra(EXTRA_FECHA, fecha);
+
+                        //Se la pasamos al MainActivity
+                        setResult(RESULT_OK, i);
+                        finish();
                     }
 
-                    i.putExtra(EXTRA_DIARIO ,(Parcelable) diaDiario);
-                    //Mando la fecha en formato String, para formatearla
-                    i.putExtra(EXTRA_FECHA, fecha);
-
-                    //Se la pasamos al MainActivity
-                    setResult(RESULT_OK, i);
-                    finish();
                 }
             }
         });
