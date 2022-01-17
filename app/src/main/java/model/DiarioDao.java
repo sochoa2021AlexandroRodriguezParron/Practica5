@@ -42,7 +42,7 @@ public interface DiarioDao {
     Single<Integer> getValoracioTotal();
 
     //Encuentra el objeto por la fecha
-    @Query("SELECT * FROM "+ DiaDiario.TABLE_NAME+" where fecha LIKE  '%' || :fecha || '%' ")
-    LiveData<List<DiaDiario>> findByFecha(String fecha);
+    @Query("SELECT * FROM "+ DiaDiario.TABLE_NAME+" where resumen LIKE  '%' || :resumen || '%' ")
+    LiveData<List<DiaDiario>> findByResumen(String resumen);
 
 }

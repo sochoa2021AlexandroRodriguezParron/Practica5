@@ -4,8 +4,8 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,15 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity{
     private DiarioViewModel diarioViewModel;
     private RecyclerView rv_dias;
     private AdapterView adapterView;
+    private SearchView svBusqueda;
 
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity{
 
         fabAñadir = findViewById(R.id.fabAñadir);
         rv_dias = findViewById(R.id.rv_dias);
+        svBusqueda = findViewById(R.id.svBusqueda);
 
         //RecyclerView
         adapterView = new AdapterView();
@@ -132,6 +135,27 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+
+        svBusqueda.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        svBusqueda.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                diarioViewModel.setCondicionBusqueda(query);
+                Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Este método nos ayudara a buscar el texto que escribe el usuario
+                if(newText.length()==0)
+                    diarioViewModel.setCondicionBusqueda("");
+
+
+
+                return false;
+            }
+        });
     }
 
     //Método para borrar un día

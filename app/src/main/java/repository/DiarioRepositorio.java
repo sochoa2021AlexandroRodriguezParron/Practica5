@@ -42,8 +42,10 @@ public class DiarioRepositorio {
     public LiveData<List<DiaDiario>> getAllDia(){
         return mAllDiario;
     }
-    public LiveData<List<DiaDiario>> getByFecha(String fecha){
-        mAllDiario=mDiarioDao.findByFecha(fecha);
+
+
+    public LiveData<List<DiaDiario>> getByResumen(String resumen){
+        mAllDiario=mDiarioDao.findByResumen(resumen);
         return mAllDiario;
     }
     //lista ordenado por columnas diferentes
