@@ -144,6 +144,9 @@ public class EdicionDiaActivity extends AppCompatActivity {
             diaDiario.setFecha(fecha);
             fechaExtra = diaExtra.getStaticFechaFormatoLocal(fecha);
             tv_fechaElegida.setText(fechaExtra);
+
+
+
         }
 
         fabGuardarEdicion.setOnClickListener(new View.OnClickListener() {
