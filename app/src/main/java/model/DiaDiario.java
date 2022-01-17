@@ -181,6 +181,7 @@ public class DiaDiario implements Parcelable {
         dest.writeString(resumen);
         dest.writeString(contenido);
         dest.writeString(fotoUri);
+        dest.writeLong(this.fecha != null ? this.fecha.getTime() : -1);
     }
 
     protected DiaDiario(Parcel in) {
@@ -189,7 +190,6 @@ public class DiaDiario implements Parcelable {
         this.resumen = in.readString();
         this.contenido = in.readString();
         this.fotoUri = in.readString();
-
         long tmpFecha = in.readLong();
         this.fecha = tmpFecha == -1 ? null : new Date(tmpFecha);
     }

@@ -72,7 +72,7 @@ public class EdicionDiaActivity extends AppCompatActivity {
 
         tv_fechaElegida.setText(diaDiario.getStaticFechaFormatoLocal(date));
 
-
+        valorarDia = sb_ValoracionDia.getProgress();
         sb_ValoracionDia.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -85,7 +85,6 @@ public class EdicionDiaActivity extends AppCompatActivity {
             public void onStartTrackingTouch(SeekBar seekBar) {
                 String textoFormateado = getResources().getString(R.string.tv_ValoraDia);
                 tv_ValoraDia.setText(textoFormateado);
-                sb_ValoracionDia.setProgress(5);
             }
 
             @Override
@@ -116,10 +115,11 @@ public class EdicionDiaActivity extends AppCompatActivity {
                         newCalendar.get(Calendar.MONTH),
                         newCalendar.get(Calendar.DAY_OF_MONTH));//esto último es el dia a mostrar
                 dialogo.show();
-
-
             }
         });
+
+        fechaActual = calendar.getTime();
+
 
         DiaDiario diaExtra = getIntent().getParcelableExtra(MainActivity.EXTRA_MAIN);
         String fechaExtra = getIntent().getStringExtra(MainActivity.EXTRA_FECHA);
@@ -173,6 +173,7 @@ public class EdicionDiaActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+
                         diaDiario.setFecha(fechaActualizada);
                         //Resumen
                         diaDiario.setResumen(res);
@@ -182,43 +183,42 @@ public class EdicionDiaActivity extends AppCompatActivity {
                         diaDiario.setContenido(con);
 
                         Intent i = getIntent();
-
                         i.putExtra(EXTRA_DIARIO ,(Parcelable) diaDiario);
                         //Mando la fecha en formato String, para formatearla
                         i.putExtra(EXTRA_FECHA, fecha);
-
                         //Se la pasamos al MainActivity
                         setResult(RESULT_OK, i);
                         finish();
 
                     }else{
-                        diaDiario = new DiaDiario();
-                        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
-
-                        fecha = formatoDelTexto.format(fechaActual);
-
-                        try {
-                            diaDiario = new DiaDiario(formatoDelTexto.parse(fecha), valorarDia, res, con);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        Intent i = getIntent();
-
-                        i.putExtra(EXTRA_DIARIO ,(Parcelable) diaDiario);
-                        //Mando la fecha en formato String, para formatearla
-                        i.putExtra(EXTRA_FECHA, fecha);
-
-                        //Se la pasamos al MainActivity
-                        setResult(RESULT_OK, i);
-                        finish();
+                        pasarDatosaOtraActividad(res, con);
                     }
 
                 }
             }
         });
+    }
 
+    private void pasarDatosaOtraActividad(String res, String con) {
+        diaDiario = new DiaDiario();
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
 
+        String fecha = formatoDelTexto.format(fechaActual);
 
+        try {
+            diaDiario = new DiaDiario(formatoDelTexto.parse(fecha), valorarDia, res, con);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Intent i = getIntent();
+
+        i.putExtra(EXTRA_DIARIO ,(Parcelable) diaDiario);
+        //Mando la fecha en formato String, para formatearla
+        i.putExtra(EXTRA_FECHA, fecha);
+
+        //Se la pasamos al MainActivity
+        setResult(RESULT_OK, i);
+        finish();
     }
 
     public Date getFechaActual() {
