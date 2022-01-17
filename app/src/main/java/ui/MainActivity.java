@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -119,13 +121,40 @@ public class MainActivity extends AppCompatActivity{
         adapterView.setOnClickEditarListener(new AdapterView.OnItemClickEditarListener() {
             @Override
             public void onItemEditarClick(DiaDiario diaDiario) {
-                editarTarea(diaDiario);
+                editarDia(diaDiario);
+            }
+        });
+
+        adapterView.setOnClickBorrarListener(new AdapterView.OnItemClickBorrarListener() {
+            @Override
+            public void onItemBorrarClick(DiaDiario diaDiario) {
+                borrarDia(diaDiario);
             }
         });
 
     }
 
-    private void editarTarea(DiaDiario diaDiario) {
+    //Método para borrar un día
+    private void borrarDia(DiaDiario diaDiario) {
+        //Obtenemos la fecha
+        String fecha = diaDiario.getStaticFechaFormatoLocal(diaDiario.getFecha());
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(getResources().getString(R.string.tituloDialogo));
+        dialog.setMessage(getResources().getString(R.string.mensajeDialogo, fecha));
+        dialog.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                diarioViewModel.delete(diaDiario);
+            }
+        });
+        dialog.setNegativeButton(getResources().getString(R.string.no), null);
+
+        dialog.show();
+    }
+
+    //Método para poder editar un día.
+    private void editarDia(DiaDiario diaDiario) {
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
         //Pasa de esta actividad a la Actividad EdicionDiaActivity
         Intent i = new Intent(MainActivity.this, EdicionDiaActivity.class);        //Le manda el objeto tarea

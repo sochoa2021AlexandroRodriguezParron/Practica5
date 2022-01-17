@@ -15,4 +15,8 @@
     <string name="tituloAviso">Aviso</string>
     <string name="mensajeAviso">Es necesario rellenar todos los camos</string>
     <string name="okAviso">OK</string>
+    <string name="tituloDialogo">Borrar dia</string>
+    <string name="mensajeDialogo">Estás seguro de que quieres borrar el día %1$s</string>
+    <string name="yes">SI</string>
+    <string name="no">No</string>
 </resources>
