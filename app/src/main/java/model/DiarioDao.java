@@ -35,13 +35,13 @@ public interface DiarioDao {
     LiveData<List<DiaDiario>> getAllDiaDiario();
 
     //todos los DiaDiario ordenados
-    @Query("SELECT * FROM "+ DiaDiario.TABLE_NAME+" ORDER BY :resumen ASC")
-    LiveData<List<DiaDiario>> getDiarioOrderBy(String resumen);
+    @Query("SELECT * FROM "+ DiaDiario.TABLE_NAME+" ORDER BY :query ASC")
+    LiveData<List<DiaDiario>> getDiarioOrderBy(String query);
 
     @Query("SELECT AVG(valoracion_dia) FROM "+ DiaDiario.TABLE_NAME)
     Single<Integer> getValoracioTotal();
 
-    //Encuentra el objeto por la fecha
+    //Encuentra el objeto por el resumen
     @Query("SELECT * FROM "+ DiaDiario.TABLE_NAME+" where resumen LIKE  '%' || :resumen || '%' ")
     LiveData<List<DiaDiario>> findByResumen(String resumen);
 

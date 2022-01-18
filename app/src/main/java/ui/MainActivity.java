@@ -4,10 +4,12 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,11 +17,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -29,9 +34,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import model.DiaDiario;
 import practica5.AlexandroRodriguez.iesseveroochoa.net.R;
 import viewmodels.AdapterView;
@@ -48,6 +60,7 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView rv_dias;
     private AdapterView adapterView;
     private SearchView svBusqueda;
+    private int media;
 
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -96,7 +109,13 @@ public class MainActivity extends AppCompatActivity{
 
         //RecyclerView
         adapterView = new AdapterView();
-        rv_dias.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+        int orientation = getResources().getConfiguration().orientation;
+        if(orientation == Configuration.ORIENTATION_PORTRAIT) {//una fila
+            rv_dias.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        }else {
+            rv_dias.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));//2 es el número de columnas
+        }
         rv_dias.setAdapter(adapterView);
 
 
@@ -141,7 +160,6 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public boolean onQueryTextSubmit(String query) {
                 diarioViewModel.setCondicionBusqueda(query);
-                Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -151,11 +169,97 @@ public class MainActivity extends AppCompatActivity{
                 if(newText.length()==0)
                     diarioViewModel.setCondicionBusqueda("");
 
-
-
                 return false;
             }
         });
+
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_ordenar:
+                ordenar();
+                break;
+            case R.id.action_about:
+                acercaDe();
+                break;
+            case R.id.action_valoravida:
+                valoracionDia();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void valoracionDia() {
+
+
+        diarioViewModel.geMediaValoracion().subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<Integer>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(@NonNull Integer integer) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+
+                if(integer < 5){
+                    dialog.setIcon(getResources().getDrawable(R.mipmap.ic_bigsad_foreground, null));
+                }else{
+                    if(integer > 5){
+                        dialog.setIcon(getResources().getDrawable(R.mipmap.ic_bigsmile_foreground, null));
+                    }else{
+                        dialog.setIcon(getResources().getDrawable(R.mipmap.ic_bigneutral_foreground, getTheme()));
+                    }
+                }
+
+                dialog.show();
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        });
+
+
+
+
+    }
+
+    private void acercaDe() {
+        String mensaje = getResources().getString(R.string.parte1) + "\n"
+                +  getResources().getString(R.string.parte2)+ "\n"
+                +  getResources().getString(R.string.parte3);
+
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(getResources().getString(R.string.action_about));
+        dialog.setMessage(mensaje);
+        dialog.show();
+    }
+
+    private void ordenar() {
+        String[] opciones = getResources().getStringArray(R.array.ordenar);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(getResources().getString(R.string.tituloOrdenar));
+        dialog.setItems(opciones, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                diarioViewModel.setCondicionOrdenar(opciones[item]);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
+
     }
 
     //Método para borrar un día

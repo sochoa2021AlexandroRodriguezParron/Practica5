@@ -10,6 +10,8 @@ import androidx.lifecycle.Transformations;
 
 import java.util.List;
 
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
 import model.DiaDiario;
 import repository.DiarioRepositorio;
 
@@ -18,6 +20,8 @@ public class DiarioViewModel extends AndroidViewModel {
     private DiarioRepositorio mRepository;
     private LiveData<List<DiaDiario>> mAllDiarios;
     private MutableLiveData<String> condicionBusquedaLiveData;
+    private MutableLiveData<String> condicionOrdenarLiveData;
+    private MutableLiveData<Integer> condicionMediaLiveData;
 
 
     public DiarioViewModel(@NonNull Application application) {
@@ -31,26 +35,50 @@ public class DiarioViewModel extends AndroidViewModel {
         //en el primer momento no hay condición
         condicionBusquedaLiveData.setValue("");
 
+        //Este Livedata estará asociado al menu de ordenar
+        condicionOrdenarLiveData=new MutableLiveData<String>();
+        //en el primer momento no hay condición
+        condicionOrdenarLiveData.setValue("");
+
+        //Este Livedata estará asociado al menu de ordenar
+        condicionMediaLiveData=new MutableLiveData<Integer>();
+        //en el primer momento no hay condición
+        condicionMediaLiveData.setValue(0);
+
+
         //version lambda
         mAllDiarios= Transformations.switchMap(condicionBusquedaLiveData,
-                nombre -> mRepository.getByResumen(nombre));
+                resumen -> mRepository.getByResumen(resumen));
+
+        //version lambda
+        mAllDiarios= Transformations.switchMap(condicionOrdenarLiveData,
+                query -> mRepository.getDiarioOrderBy(query));
+
+
     }
 
     public LiveData<List<DiaDiario>> getByResumen()
     {
         return mAllDiarios;
     }
+
+    //Para buscar
     public void setCondicionBusqueda(String condicionBusqueda) {
         condicionBusquedaLiveData.setValue(condicionBusqueda);
     }
 
-
-    public LiveData<List<DiaDiario>> getAllDiarios()
-    {
-        return mAllDiarios;
-
+    //Para ordenar
+    public void setCondicionOrdenar(String condicionBusqueda) {
+        condicionOrdenarLiveData.setValue(condicionBusqueda);
     }
 
+    public Single<Integer> geMediaValoracion(){
+        return mRepository.getValoracioTotal();
+    }
+
+    public LiveData<List<DiaDiario>> getAllDiarios() {
+        return mAllDiarios;
+    }
 
     //Inserción y borrado que se reflejará automáticamente gracias al observador creado en la
     //actividad

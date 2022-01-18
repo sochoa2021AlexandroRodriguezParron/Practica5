@@ -25,6 +25,7 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.AdapterViewHol
     private OnItemClickBorrarListener listenerBorrar;
     private OnItemClickEditarListener listenerEditar;
 
+
     //cuando se modifique la lista, actualizamos el recyclerview
     public void setDiarios(List<DiaDiario> diarios){
         listaDiario=diarios;
@@ -129,6 +130,12 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.AdapterViewHol
 
 
     }
+
+    public DiaDiario getDia(){
+        //return listaDiario.get(AdapterViewHolder.this.getBindingAdapterPosition());
+        return null;
+    }
+
     //Interfaz para poder ejecutar el ImageView Borrar al darle click
     public interface OnItemClickBorrarListener {
         void onItemBorrarClick(DiaDiario diaDiario);

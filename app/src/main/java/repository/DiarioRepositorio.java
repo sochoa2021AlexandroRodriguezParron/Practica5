@@ -49,14 +49,15 @@ public class DiarioRepositorio {
         return mAllDiario;
     }
     //lista ordenado por columnas diferentes
-    public LiveData<List<DiaDiario>> getDiarioOrderBy(String resumen){
-        mAllDiario=mDiarioDao.getDiarioOrderBy(resumen);
+    public LiveData<List<DiaDiario>> getDiarioOrderBy(String query){
+        mAllDiario=mDiarioDao.getDiarioOrderBy(query);
         return mAllDiario;
     }
 
     public Single<Integer> getValoracioTotal(){
         return mDiarioDao.getValoracioTotal();
     }
+
     /*
     Insertar: nos obliga a crear tarea en segundo plano
      */

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="ordenar">
+        <item>Fecha</item>
+        <item>Valoración</item>
+        <item>Resumen</item>
+    </array>
+
+
+</resources>
