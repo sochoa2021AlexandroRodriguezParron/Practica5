@@ -10,6 +10,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -117,6 +118,36 @@ public class MainActivity extends AppCompatActivity{
             rv_dias.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));//2 es el número de columnas
         }
         rv_dias.setAdapter(adapterView);
+
+        //Animacion Swiper
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new
+                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT |
+                        ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView,
+                                          RecyclerView.ViewHolder
+                                                  viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                        //realizamos un cast del viewHolder y obtenemos el dia
+                        // borrar
+                        //
+                        DiaDiario diaDelete=((AdapterView.AdapterViewHolder)viewHolder).getDia();
+                        borrarDia(diaDelete);
+                        //Obtenemos la posicion del viewHolder, para que al arrastrarlo, no se quede un hueco en caso de candelar
+                        final int posicion=viewHolder.getBindingAdapterPosition();
+                        adapterView.notifyItemChanged(posicion);
+                    }
+                };
+                //Creamos el objeto de ItemTouchHelper que se encargará del trabajo
+                ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+                //lo asociamos a nuestro reciclerView
+                itemTouchHelper.attachToRecyclerView(rv_dias);
+
+
+
 
 
         diarioViewModel= new ViewModelProvider(this).get(DiarioViewModel.class);

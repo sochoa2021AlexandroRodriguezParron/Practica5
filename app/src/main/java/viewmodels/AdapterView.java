@@ -128,13 +128,13 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.AdapterViewHol
             });
         }
 
+        public DiaDiario getDia(){
+            return listaDiario.get(AdapterViewHolder.this.getBindingAdapterPosition());
+        }
 
     }
 
-    public DiaDiario getDia(){
-        //return listaDiario.get(AdapterViewHolder.this.getBindingAdapterPosition());
-        return null;
-    }
+
 
     //Interfaz para poder ejecutar el ImageView Borrar al darle click
     public interface OnItemClickBorrarListener {
