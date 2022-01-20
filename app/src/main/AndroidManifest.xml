@@ -9,17 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Practica5">
-
+        <activity
+            android:name="ui.PreferenciasActivity"
+            android:exported="false"
+            android:label="@string/title_activity_preferencias" />
         <activity
             android:name="ui.EdicionDiaActivity"
-            android:exported="false"
             android:configChanges="screenSize|orientation"
+            android:exported="false"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="ui.MainActivity"
+            android:configChanges="screenSize|orientation"
             android:exported="true"
             android:theme="@style/Theme.Practica5.NoActionBar"
-            android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

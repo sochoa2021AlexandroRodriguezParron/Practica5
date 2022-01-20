@@ -6,6 +6,18 @@
         <item>Valoración</item>
         <item>Resumen</item>
     </array>
+    <!-- Reply Preference -->
+    <string-array name="sexo">
+        <item>Chico</item>
+        <item>Chica</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+
 
 
 </resources>

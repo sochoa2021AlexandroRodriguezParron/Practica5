@@ -4,7 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.DateFormat;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -186,6 +188,7 @@ public class EdicionDiaActivity extends AppCompatActivity {
                         i.putExtra(EXTRA_DIARIO ,(Parcelable) diaDiario);
                         //Mando la fecha en formato String, para formatearla
                         i.putExtra(EXTRA_FECHA, fecha);
+                        guardarDiaPreferencias(new Date());
                         //Se la pasamos al MainActivity
                         setResult(RESULT_OK, i);
                         finish();
@@ -219,6 +222,20 @@ public class EdicionDiaActivity extends AppCompatActivity {
         //Se la pasamos al MainActivity
         setResult(RESULT_OK, i);
         finish();
+    }
+
+    //Parte 3
+
+    private void guardarDiaPreferencias(Date fecha) {
+        //buscamos el fichero de preferencias
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.preference_file),
+                Context.MODE_PRIVATE);
+        //lo abrimos en modo edición
+        SharedPreferences.Editor editor = sharedPref.edit();
+        //guardamos la fecha del día como entero
+        editor.putLong(getString(R.string.pref_key_ultimo_dia),fecha.getTime());
+        //finalizamos
+        editor.commit();
     }
 
     public Date getFechaActual() {

@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -203,9 +205,6 @@ public class MainActivity extends AppCompatActivity{
                 return false;
             }
         });
-
-
-
     }
 
     @Override
@@ -221,11 +220,26 @@ public class MainActivity extends AppCompatActivity{
             case R.id.action_valoravida:
                 valoracionDia();
                 break;
+            case R.id.action_ult_dia:
+                muestraUltimoDia();
+                break;
+            case R.id.action_setting:
+                Intent i = new Intent(MainActivity.this, PreferenciasActivity.class);
+                startActivity(i);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void muestraUltimoDia() {
+        //recuperamos las preferencias
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.preference_file), Context.MODE_PRIVATE);
+        //recuperamos la fecha del últimos día editado
+        long ultimoDia = sharedPref.getLong(getString(R.string.pref_key_ultimo_dia),0);
+        //mostramos el resultado
+        Toast.makeText(this,"El último día editado "+DiaDiario.getStaticFechaFormatoLocal(new Date(ultimoDia)),Toast.LENGTH_LONG).show();
+    }
     private void valoracionDia() {
 
 

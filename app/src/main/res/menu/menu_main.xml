@@ -16,6 +16,10 @@
         android:title="@string/action_fechas"
         app:showAsAction="withText" />
     <item
+        android:id="@+id/action_ult_dia"
+        android:title="@string/action_ult_dia"
+        app:showAsAction="withText" />
+    <item
         android:id="@+id/action_setting"
         android:title="@string/action_setting"
         app:showAsAction="withText" />
