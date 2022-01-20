@@ -27,7 +27,6 @@
     <PreferenceCategory app:title="@string/titulo_configuracion_ajustes">
 
         <SwitchPreferenceCompat
-            app:dependency="sync"
             app:icon="@android:drawable/ic_popup_reminder"
             app:key="attachment"
             app:summaryOff="@string/texto_off_avisar_ajustes"
