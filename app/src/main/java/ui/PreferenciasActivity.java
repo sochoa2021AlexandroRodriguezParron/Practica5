@@ -1,14 +1,22 @@
 package ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.internal.view.SupportMenuItem;
+import androidx.preference.EditTextPreference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import practica5.AlexandroRodriguez.iesseveroochoa.net.R;
 
 public class PreferenciasActivity extends AppCompatActivity {
+
+    public final static String EXTRA_PREFERENCIAS = "PreferenciasActivity.extra";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +32,28 @@ public class PreferenciasActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+
+
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
         }
+
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent i = getIntent();
+        setResult(RESULT_OK, i);
+        finish();
+        onBackPressed();
+        return false;
+    }
+
+
 }

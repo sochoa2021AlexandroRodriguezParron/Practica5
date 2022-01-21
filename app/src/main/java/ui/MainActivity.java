@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,15 +64,12 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView rv_dias;
     private AdapterView adapterView;
     private SearchView svBusqueda;
-    private int media;
 
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    int requestCodeNuevo = 1;
-                    int requestCodeEditar = 0;
                     //Si el usuario pulsa OK en la Activity que hemos llamado
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         //Recuperamos los dados
@@ -96,6 +94,24 @@ public class MainActivity extends AppCompatActivity{
                 }
             });
 
+    //Intent que se encargará de llamar a la actividad de ajustes, y a traerse esos datos
+    ActivityResultLauncher<Intent> resultAjustes = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    //Si el usuario pulsa OK en la Activity que hemos llamado
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        int pantalla=(getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK);
+                        if ((pantalla == Configuration.SCREENLAYOUT_SIZE_LARGE) || pantalla==Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+                            SharedPreferences sharedPreferences =
+                                    PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                            PreferenceManager.setDefaultValues(MainActivity.this, R.xml.root_preferences, false);
+                            String nombre = sharedPreferences.getString("nombre", "");
+                            MainActivity.this.setTitle(nombre);
+                        }
+                    }
+                }
+            });
 
 
 
@@ -205,6 +221,8 @@ public class MainActivity extends AppCompatActivity{
                 return false;
             }
         });
+
+
     }
 
     @Override
@@ -225,12 +243,13 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case R.id.action_setting:
                 Intent i = new Intent(MainActivity.this, PreferenciasActivity.class);
-                startActivity(i);
+                resultAjustes.launch(i);
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     private void muestraUltimoDia() {
         //recuperamos las preferencias
