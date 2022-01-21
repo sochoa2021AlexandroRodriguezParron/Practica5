@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -41,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity{
 
     public final static String EXTRA_MAIN="net.iessochoa.alexandrorodriguez.practica5.MainActivity.extra";
     public final static String EXTRA_FECHA = "MainActivity.fecha";
+    public final static String CHICA = "Chica";
+    public final static String CHICO = "Chico";
 
 
     private FloatingActionButton fabAñadir;
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView rv_dias;
     private AdapterView adapterView;
     private SearchView svBusqueda;
+    private SharedPreferences sharedPreferences;
 
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -94,26 +99,33 @@ public class MainActivity extends AppCompatActivity{
                 }
             });
 
-    //Intent que se encargará de llamar a la actividad de ajustes, y a traerse esos datos
-    ActivityResultLauncher<Intent> resultAjustes = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    //Si el usuario pulsa OK en la Activity que hemos llamado
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        int pantalla=(getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK);
-                        if ((pantalla == Configuration.SCREENLAYOUT_SIZE_LARGE) || pantalla==Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-                            SharedPreferences sharedPreferences =
-                                    PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                            PreferenceManager.setDefaultValues(MainActivity.this, R.xml.root_preferences, false);
-                            String nombre = sharedPreferences.getString("nombre", "");
-                            MainActivity.this.setTitle(nombre);
-                        }
-                    }
-                }
-            });
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        defineTituloApp();
+        leerEstiloChicoChica();
+    }
 
+    private void leerEstiloChicoChica() {
+        String sexoEscogido = sharedPreferences.getString("titulo_sexo_ajustes", "");
+        if (sexoEscogido.equalsIgnoreCase(CHICO)) {
+            rv_dias.setBackgroundResource(R.color.chico);
+        } else {
+            rv_dias.setBackgroundResource(R.color.chica);
+        }
+    }
+    /**
+     * Para definir el titulo de la aplicacion
+     */
+    private void defineTituloApp() {
+        int pantalla=(getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK);
+        if ((pantalla == Configuration.SCREENLAYOUT_SIZE_LARGE) || pantalla==Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            String nombre = sharedPreferences.getString("nombre", "");
+            MainActivity.this.setTitle(nombre);
+        }
+    }
 
 
     @Override
@@ -243,7 +255,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case R.id.action_setting:
                 Intent i = new Intent(MainActivity.this, PreferenciasActivity.class);
-                resultAjustes.launch(i);
+                startActivity(i);
                 break;
         }
 

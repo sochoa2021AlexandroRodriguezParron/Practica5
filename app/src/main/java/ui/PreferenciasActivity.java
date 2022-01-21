@@ -15,8 +15,6 @@ import practica5.AlexandroRodriguez.iesseveroochoa.net.R;
 
 public class PreferenciasActivity extends AppCompatActivity {
 
-    public final static String EXTRA_PREFERENCIAS = "PreferenciasActivity.extra";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

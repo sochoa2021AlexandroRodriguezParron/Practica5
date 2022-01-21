@@ -18,7 +18,7 @@
             app:useSimpleSummaryProvider="true" />
         <ListPreference
             android:id="@+id/lista_sexo_ajustes"
-            android:defaultValue="1"
+            android:defaultValue="false"
             android:entries="@array/sexo"
             android:entryValues="@array/sexo"
             android:key="titulo_sexo_ajustes"
