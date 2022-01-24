@@ -4,22 +4,27 @@
     <PreferenceCategory app:title="@string/titulo_ajustes">
 
         <EditTextPreference
+            android:id="@+id/nombre_ajustes"
             app:defaultValue="@string/texto_nombre_ajustes"
             app:key="nombre"
             app:title="@string/titulo_nombre_ajustes"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"/>
+
         <EditTextPreference
+            android:id="@+id/cumple_ajustes"
             app:defaultValue="@string/titulo_fecha_ajustes"
             app:key="fechaCumple"
             app:title="@string/titulo_fecha_ajustes"
             app:useSimpleSummaryProvider="true" />
         <ListPreference
-            android:defaultValue="1"
+            android:id="@+id/lista_sexo_ajustes"
+            android:defaultValue="false"
             android:entries="@array/sexo"
             android:entryValues="@array/sexo"
             android:key="titulo_sexo_ajustes"
             android:summary="@string/texto_sexo_ajustes"
             android:title="@string/titulo_sexo_ajustes" />
+
 
 
     </PreferenceCategory>
@@ -34,5 +39,6 @@
             app:title="@string/titulo_avisar_ajustes" />
 
     </PreferenceCategory>
+
 
 </PreferenceScreen>
