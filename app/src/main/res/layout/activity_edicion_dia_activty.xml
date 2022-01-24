@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="409dp"
@@ -38,25 +38,28 @@
             android:id="@+id/tv_fechaElegida"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold|italic"
-            app:layout_constraintEnd_toStartOf="@+id/iv_fecha"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/et_Resumen"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toEndOf="@+id/tv_ValoraDia"
+            app:layout_constraintTop_toBottomOf="@+id/iv_fecha" />
 
         <ImageView
             android:id="@+id/iv_fecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toStartOf="@+id/et_Resumen"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_fechaElegida"
+            app:layout_constraintStart_toEndOf="@+id/sb_ValoracionDia"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_month" />
 
@@ -64,49 +67,69 @@
             android:id="@+id/et_Resumen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
             android:ems="10"
             android:hint="@string/et_Resumen"
             android:inputType="textPersonName"
             android:textColor="#F8F8F8"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ValoraDia" />
+
+        <SeekBar
+            android:id="@+id/sb_ValoracionDia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:max="@integer/sb_Max"
+            android:progress="5"
+            app:layout_constraintBottom_toTopOf="@+id/tv_ValoraDia"
+            app:layout_constraintEnd_toStartOf="@+id/iv_fecha"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/iv_fecha"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_ValoraDia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/tv_ValoraDia"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold|italic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/sb_ValoracionDia"
+            app:layout_constraintBottom_toTopOf="@+id/et_Resumen"
+            app:layout_constraintEnd_toStartOf="@+id/tv_fechaElegida"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fechaElegida" />
+            app:layout_constraintTop_toBottomOf="@+id/sb_ValoracionDia" />
 
-        <SeekBar
-            android:id="@+id/sb_ValoracionDia"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:max="@integer/sb_Max"
-            android:progress="5"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_ValoraDia"
-            app:layout_constraintTop_toBottomOf="@+id/et_Resumen" />
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.65" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView

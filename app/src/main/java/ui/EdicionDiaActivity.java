@@ -1,5 +1,6 @@
 package ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +11,8 @@ import android.content.SharedPreferences;
 import android.icu.text.DateFormat;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -252,6 +255,25 @@ public class EdicionDiaActivity extends AppCompatActivity {
 
     public void setValorarDia(int valorarDia) {
         this.valorarDia = valorarDia;
+    }
+
+    //Practica5 parte 4
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_edicion, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_ordenar:
+                //TO_DO: 
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

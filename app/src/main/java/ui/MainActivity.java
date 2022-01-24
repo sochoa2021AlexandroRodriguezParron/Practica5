@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity{
 
     public final static String EXTRA_MAIN="net.iessochoa.alexandrorodriguez.practica5.MainActivity.extra";
     public final static String EXTRA_FECHA = "MainActivity.fecha";
-    public final static String CHICA = "Chica";
     public final static String CHICO = "Chico";
 
 
