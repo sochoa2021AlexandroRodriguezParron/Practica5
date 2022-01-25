@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
  * Sigleton
  * https://developer.android.com/training/data-storage/room/prepopulate
  */
-//le indicamos las entidades de la base de datos y la versión
+//Le indicamos las entidades de la base de datos y la versión
 @Database(entities = {DiaDiario.class}, version = 1)
 //Nos transforma automáticamente las fechas a entero
 @TypeConverters({TransformaFechaSQLite.class})

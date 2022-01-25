@@ -57,11 +57,12 @@ import viewmodels.DiarioViewModel;
 
 public class MainActivity extends AppCompatActivity{
 
+    /**CONSTANTES**/
     public final static String EXTRA_MAIN="net.iessochoa.alexandrorodriguez.practica5.MainActivity.extra";
     public final static String EXTRA_FECHA = "MainActivity.fecha";
     public final static String CHICO = "Chico";
 
-
+    /**ATRIBUTOS**/
     private FloatingActionButton fabAñadir;
     private DiarioViewModel diarioViewModel;
     private RecyclerView rv_dias;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity{
     private SharedPreferences sharedPreferences;
 
 
+    /**Método que pasa a otra actividad**/
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -107,6 +109,9 @@ public class MainActivity extends AppCompatActivity{
         leerEstiloChicoChica();
     }
 
+    /**
+     * Para ver en los ajustes si elije chica o chico
+     */
     private void leerEstiloChicoChica() {
         String sexoEscogido = sharedPreferences.getString("titulo_sexo_ajustes", "");
         if (sexoEscogido.equalsIgnoreCase(CHICO)) {
@@ -127,17 +132,22 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    /**
+     * Método onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
 
+        /**Hacemos referencia a los objetos del layout**/
         fabAñadir = findViewById(R.id.fabAñadir);
         rv_dias = findViewById(R.id.rv_dias);
         svBusqueda = findViewById(R.id.svBusqueda);
 
-        //RecyclerView
+        /**RecyclerView**/
         adapterView = new AdapterView();
 
         int orientation = getResources().getConfiguration().orientation;
@@ -148,7 +158,7 @@ public class MainActivity extends AppCompatActivity{
         }
         rv_dias.setAdapter(adapterView);
 
-        //Animacion Swiper
+        /**Animacion Swiper**/
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new
                 ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT |
                         ItemTouchHelper.RIGHT) {
@@ -191,6 +201,7 @@ public class MainActivity extends AppCompatActivity{
                     }
                 });
 
+        /**Floating Action Button**/
         fabAñadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,21 +211,21 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        /**Editar**/
         adapterView.setOnClickEditarListener(new AdapterView.OnItemClickEditarListener() {
             @Override
             public void onItemEditarClick(DiaDiario diaDiario) {
                 editarDia(diaDiario);
             }
         });
-
+        /**Borrar**/
         adapterView.setOnClickBorrarListener(new AdapterView.OnItemClickBorrarListener() {
             @Override
             public void onItemBorrarClick(DiaDiario diaDiario) {
                 borrarDia(diaDiario);
             }
         });
-
-
+        /**Para la búsqueda de un DiaDiario**/
         svBusqueda.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         svBusqueda.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -236,6 +247,11 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * Para las opciones del menú
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -261,7 +277,9 @@ public class MainActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Para mostrar el último día
+     */
     private void muestraUltimoDia() {
         //recuperamos las preferencias
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.preference_file), Context.MODE_PRIVATE);
@@ -270,6 +288,10 @@ public class MainActivity extends AppCompatActivity{
         //mostramos el resultado
         Toast.makeText(this,"El último día editado "+DiaDiario.getStaticFechaFormatoLocal(new Date(ultimoDia)),Toast.LENGTH_LONG).show();
     }
+
+    /**
+     * Para ver la valoración del día
+     */
     private void valoracionDia() {
 
 
@@ -299,15 +321,13 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onError(@NonNull Throwable e) {
-
             }
         });
-
-
-
-
     }
 
+    /**
+     * Para el menú acerca de..
+     */
     private void acercaDe() {
         String mensaje = getResources().getString(R.string.parte1) + "\n"
                 +  getResources().getString(R.string.parte2)+ "\n"
@@ -320,6 +340,9 @@ public class MainActivity extends AppCompatActivity{
         dialog.show();
     }
 
+    /**
+     * Para ordenar
+     */
     private void ordenar() {
         String[] opciones = getResources().getStringArray(R.array.ordenar);
 
@@ -333,11 +356,9 @@ public class MainActivity extends AppCompatActivity{
             }
         });
         dialog.show();
-
-
     }
 
-    //Método para borrar un día
+    /**Método para borrar un día**/
     private void borrarDia(DiaDiario diaDiario) {
         //Obtenemos la fecha
         String fecha = diaDiario.getStaticFechaFormatoLocal(diaDiario.getFecha());
@@ -356,7 +377,7 @@ public class MainActivity extends AppCompatActivity{
         dialog.show();
     }
 
-    //Método para poder editar un día.
+    /**Método para poder editar un día**/
     private void editarDia(DiaDiario diaDiario) {
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("DD-MM-yyyy");
         //Pasa de esta actividad a la Actividad EdicionDiaActivity

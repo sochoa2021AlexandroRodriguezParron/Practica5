@@ -18,7 +18,8 @@ import java.util.Locale;
 @Entity(tableName = DiaDiario.TABLE_NAME,
         indices = {@Index(value = {DiaDiario.FECHA},unique = true)})
 public class DiaDiario implements Parcelable {
-    //Constantes
+
+    /**CONSTANTES ÚTILES**/
     public static final String TABLE_NAME="diario";
     public static final String ID= BaseColumns._ID;
     public static final String FECHA="fecha";
@@ -27,7 +28,7 @@ public class DiaDiario implements Parcelable {
     public static final String CONTENIDO="contenido";
     public static final String FOTO_URI="foto_uri";
 
-    //Atributos
+    /**ATRIBUTOS**/
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name=ID)
@@ -53,8 +54,14 @@ public class DiaDiario implements Parcelable {
     @NonNull
     private String fotoUri; //Mantendremos una foto representativa del día.
 
-    //Constructores
-    //Ttodo menos id.
+    /**
+     * CONSTRUCTOR SIN ID
+     * @param fecha
+     * @param valoracionDia
+     * @param resumen
+     * @param contenido
+     * @param fotoUri
+     */
     public DiaDiario(@NonNull Date fecha,@NonNull int valoracionDia,@NonNull String resumen,@NonNull String contenido,@NonNull String fotoUri) {
         this.fecha = fecha;
         this.valoracionDia = valoracionDia;
@@ -63,7 +70,13 @@ public class DiaDiario implements Parcelable {
         this.fotoUri = fotoUri;
     }
 
-    //Ttodo menos id y fotoUri (se le asignará cadena vacía)
+    /**
+     * CONSTRUCTOR SIN ID, NI FOTO_URI
+     * @param fecha
+     * @param valoracionDia
+     * @param resumen
+     * @param contenido
+     */
     @Ignore
     public DiaDiario(@NonNull Date fecha,@NonNull int valoracionDia,@NonNull String resumen,@NonNull String contenido) {
         this.fecha = fecha;
@@ -73,10 +86,16 @@ public class DiaDiario implements Parcelable {
         this.fotoUri = "";
     }
 
+    /**
+     * CONSTRUCTOR VACÍO
+     */
     public DiaDiario() {
     }
 
-    //Getters & Setters
+    /**
+     * GETTERS & SETTERS DE LOS ATRIBUTOS
+     * @return
+     */
     public int getId() {
         return id;
     }
@@ -114,7 +133,7 @@ public class DiaDiario implements Parcelable {
         this.fotoUri = fotoUri;
     }
 
-    //Otros métodos
+    /**--------OTROS MÉTODOS---------**/
 
     /**
      * Nos permite mostrar el emoticono correspondiente en la lista.

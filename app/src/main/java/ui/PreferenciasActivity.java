@@ -15,7 +15,10 @@ import practica5.AlexandroRodriguez.iesseveroochoa.net.R;
 
 public class PreferenciasActivity extends AppCompatActivity {
 
-
+    /**
+     * Método OnCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +33,12 @@ public class PreferenciasActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-
-
     }
 
+    /**
+     * para establecer las preferencias
+     */
     public static class SettingsFragment extends PreferenceFragmentCompat {
-
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
@@ -44,6 +46,9 @@ public class PreferenciasActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Para volver a la actividad anterior
+     */
     @Override
     public boolean onSupportNavigateUp() {
         Intent i = getIntent();

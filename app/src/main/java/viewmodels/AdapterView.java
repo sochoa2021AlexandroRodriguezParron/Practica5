@@ -20,13 +20,13 @@ import practica5.AlexandroRodriguez.iesseveroochoa.net.R;
 
 public class AdapterView extends RecyclerView.Adapter<AdapterView.AdapterViewHolder>{
 
+    /**ATRIBUTOS**/
     private List<DiaDiario> listaDiario;
-
     private OnItemClickBorrarListener listenerBorrar;
     private OnItemClickEditarListener listenerEditar;
 
 
-    //cuando se modifique la lista, actualizamos el recyclerview
+    /**cuando se modifique la lista, actualizamos el recyclerview**/
     public void setDiarios(List<DiaDiario> diarios){
         listaDiario=diarios;
         notifyDataSetChanged();
@@ -42,9 +42,7 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.AdapterViewHol
 
     @Override
     public void onBindViewHolder(@NonNull AdapterViewHolder holder, int position) {
-
-
-
+        /**Si la lista de diarios no está vacía**/
         if(!listaDiario.isEmpty()){
             final DiaDiario diaDiario = listaDiario.get(position);
 
@@ -89,9 +87,11 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.AdapterViewHol
             return 0;
     }
 
-    //Creamos la clase ViewHolder para hacer referencia a los objetos del RecyclerView
+    /**
+     * Creamos la clase ViewHolder para hacer referencia a los objetos del RecyclerView
+     */
     public class AdapterViewHolder extends RecyclerView.ViewHolder {
-
+        /**ATRIBUTOS**/
         private ImageButton ib_delete;
         private ImageView iv_valoracionDia;
         private TextView tv_resumen;
@@ -100,13 +100,14 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.AdapterViewHol
 
         public AdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            /**Hacemos referencias a los objetos de la activity**/
             ib_delete = itemView.findViewById(R.id.ib_delete);
             iv_valoracionDia = itemView.findViewById(R.id.iv_valoracionDia);
             tv_resumen = itemView.findViewById(R.id.tv_resumen);
             tv_fecha = itemView.findViewById(R.id.tv_fecha);
             cv_fondo = itemView.findViewById(R.id.cv_fondo);
 
+            /**Card View**/
             cv_fondo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -116,7 +117,7 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.AdapterViewHol
                     }
                 }
             });
-
+            /**Imagen Button**/
             ib_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -127,7 +128,7 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.AdapterViewHol
                 }
             });
         }
-
+        /**Obtener el dia**/
         public DiaDiario getDia(){
             return listaDiario.get(AdapterViewHolder.this.getBindingAdapterPosition());
         }

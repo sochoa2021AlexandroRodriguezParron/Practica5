@@ -13,13 +13,12 @@ import model.DiarioDao;
 import model.DiarioDatabase;
 
 public class DiarioRepositorio {
-
-    //implementamos Singleton
-    private static volatile DiarioRepositorio INSTANCE;
-
+    /**ATRIBUTOS**/
     private DiarioDao mDiarioDao;
     private LiveData<List<DiaDiario>> mAllDiario;
-    //singleton
+
+    /**IMPLEMENTAMOS EL PATRÓN SINGLETON**/
+    private static volatile DiarioRepositorio INSTANCE;
     public static DiarioRepositorio getInstance(Application application) {
         if (INSTANCE == null) {
             synchronized (DiarioRepositorio.class) {
@@ -32,11 +31,11 @@ public class DiarioRepositorio {
     }
 
     private DiarioRepositorio(Application application){
-        //creamos la base de datos
+        /**Creamos la base de datos**/
         DiarioDatabase db= DiarioDatabase.getDatabase(application);
-        //Recuperamos el DAO necesario para el CRUD de la base de datos
+        /**Recuperamos el DAO necesario para el CRUD de la base de datos**/
         mDiarioDao = db.diarioDao();
-        //Recuperamos la lista como un LiveData
+        /**Recuperamos la lista como un LiveData**/
         mAllDiario = mDiarioDao.getAllDiaDiario();
     }
     public LiveData<List<DiaDiario>> getAllDia(){
@@ -48,7 +47,7 @@ public class DiarioRepositorio {
         mAllDiario=mDiarioDao.findByResumen(resumen);
         return mAllDiario;
     }
-    //lista ordenado por columnas diferentes
+    /**lista ordenado por columnas diferentes**/
     public LiveData<List<DiaDiario>> getDiarioOrderBy(String query){
         mAllDiario=mDiarioDao.getDiarioOrderBy(query);
         return mAllDiario;
@@ -58,8 +57,8 @@ public class DiarioRepositorio {
         return mDiarioDao.getValoracioTotal();
     }
 
-    /*
-    Insertar: nos obliga a crear tarea en segundo plano
+    /**
+     *Insertar: nos obliga a crear tarea en segundo plano
      */
     public void insert(DiaDiario diaDiario){
         //administramos el hilo con el Executor
@@ -70,8 +69,8 @@ public class DiarioRepositorio {
 
     }
 
-    /*
-    Borrar: nos obliga a crear tarea en segundo plano
+    /**
+     *Borrar: nos obliga a crear tarea en segundo plano
      */
     public void delete(DiaDiario diaDiario){
         //administramos el hilo con el Executor
